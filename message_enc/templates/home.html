@@ -1,0 +1,57 @@
+{% extends 'default.html' %}
+{% block content %} 
+    <div class="container">
+        <div class="row py-3">
+            <div class="col-3 order-2" id="sticky-sidebar">
+                <div class="sticky-top m-1 rounded">
+                    <div class="container p-2">
+                        <div class="row">
+                            <a class="btn btn-info border-white col" href="{{ url_for('joined_rooms') }}">Joined Rooms</a>
+                            <a class="btn btn-info border-white col" href="{{ url_for('logout') }}">Logout</a>    
+                        </div>
+                    </div>
+                    <div class="card">
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item"><h2 class="font-size">{{ current_user.username }}</h2></li>
+                          <li class="list-group-item">Joined {{ current_user.rooms|length }} rooms</li>
+                          <li class="list-group-item">Posted {{ current_user.posts|length }} posts</li>
+                        </ul>
+                      </div>
+                </div>
+            </div>
+            <div class="col" id="main">
+                <div class="bg-info text-white rounded m-1 p-2">
+                    <h1>Welcome to PrivateBox<small>beta</small></h1>
+                </div>
+                <h2 class="mt-2 ml-1">Latest Posts:</h2><hr>
+                {% if posts_list %}
+                    {% for posts in posts_list %}
+                        {% for post in posts %}
+                        <p></p>
+                        <div class="bg-light rounded m-1 p-2">
+                            <article class="media content-section bg-light m-1 p-2 rounded">
+                                <div class="media-body">
+                                <div class="article-metadata">
+                                    <small class="text-muted font-weight-bold">#{{ post.on_room.id }} {{ post.on_room.title }}</small><br>
+                                    <small class="text-muted">By <b>{{ post.author.username }}</b> on {{ post.date.strftime("%B %d, %Y at %I:%M%p") }}</small>
+                                </div><hr>
+                                <h2>{{ post.title }}</h2>
+                                <p>{{ post.content }}</p>
+                                </div>
+                            </article> 
+                        </div>
+                        {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <h4 class="m-1">No new posts...</h2>
+                {% endif %}
+                <!-- {% for posts in posts_list%}
+                    {% for post in posts %}
+                        <p>{{ post.title }}</p>
+                    {% endfor %}
+                {% endfor %} -->
+
+            </div>
+        </div>
+    </div>
+{% endblock content %}

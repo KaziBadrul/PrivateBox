@@ -1,0 +1,2 @@
+1. Public rooms no password
+2. Users currently in a room 

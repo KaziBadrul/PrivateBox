@@ -1,0 +1,55 @@
+{% extends 'default.html' %}
+{% block content %} 
+    {% for room in rooms %}
+        <div class="shadow-sm p-3 m-3 bg-dark rounded text-white">
+            <h2>#{{ room.id }} {{ room.title }}</h2>
+            <div class="column">
+                <p>{{ room.description }}</p>
+                <div class="container">
+                  <div class="row">
+                    {% if room.key %}
+                      <form action="{{ url_for('room_verification') }}" method="POST" class="d-md-flex">
+                        <input type="hidden" name='room_id' value="{{ room.id }}">
+                        <input type="text" name="pin" placeholder="PIN" class="form-control m-1 flex-md-fill bg-dark text-white border-secondary" autocomplete="off">
+                        <button class="btn-secondary btn m-1" onclick="myFunction();">Join</button>
+                      </form>
+                    {% endif %}
+                  </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock content %}
+
+
+
+<!-- PREVIOUS TRY -->
+<!-- <a href="{{ url_for('room', room_id=room.id) }}" class="btn btn-primary">Join</a> -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#keyModal" onclick="let r_id = room.id;">
+  Join
+</button> -->
+<!-- <div class="modal fade" id="keyModal" tabindex="-1" role="dialog" aria-labelledby="keyModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="keyModalLabel">Enter PIN</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <script>
+                    room_id_hidden = document.getElementById('room_id')
+                    room_id_hidden.value = r_id
+                  </script>
+                  <form action="{{ url_for('room_verification') }}" method="POST">
+                      <input  id='room_id' name="room_id">
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Enter">
+                      </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div> -->

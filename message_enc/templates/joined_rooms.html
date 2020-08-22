@@ -1,0 +1,12 @@
+{% extends 'default.html' %}
+{% block content %}
+    <h3 class="m-3">Rooms joined by {{ current_user.username }}</h3>
+    {% for room in user_rooms %}
+        <div class="shadow-sm p-3 m-3 bg-dark rounded text-white">
+            <h2>#{{ room.room_id }} {{ Room.query.filter_by(id=room.room_id).first().title }}</h2>
+            <div class="column">
+                <p>{{ Room.query.filter_by(id=room.room_id).first().description }}</p>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock content %}
